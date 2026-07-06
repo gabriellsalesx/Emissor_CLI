@@ -81,7 +81,14 @@ curl -fsSL https://raw.githubusercontent.com/gabriellsalesx/Emissor_CLI/main/scr
 Instala em `~/.local/bin/emissor-cli`. Se essa pasta não estiver no seu `PATH`, o script
 avisa como adicioná-la.
 
-### Windows (PowerShell)
+### Windows — instalador (recomendado, sem terminal)
+
+Baixe o **`Emissor-Setup.exe`** mais recente em
+[Releases](https://github.com/gabriellsalesx/Emissor_CLI/releases), execute e clique em
+instalar. Ele cria o atalho **Emissor** no Menu Iniciar (e, se você quiser, na Área de
+Trabalho) — depois é só dar dois cliques para abrir, sem precisar do PowerShell.
+
+### Windows — via PowerShell (para quem prefere o terminal)
 
 ```powershell
 irm https://raw.githubusercontent.com/gabriellsalesx/Emissor_CLI/main/scripts/install.ps1 | iex

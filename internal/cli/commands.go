@@ -345,6 +345,7 @@ func runHome(stdin io.Reader, stdout io.Writer, opts *options) error {
 		if err != nil {
 			if errors.Is(err, errCancelled) {
 				fmt.Fprintln(stdout, "Até logo.")
+				pauseIfStandalone(stdin, stdout)
 				return nil
 			}
 			return err
@@ -369,6 +370,7 @@ func runHome(stdin io.Reader, stdout io.Writer, opts *options) error {
 			runGlobalAction(stdin, stdout, func() error { return runFolder(stdout, opts.configPath, true) })
 		case "exit":
 			fmt.Fprintln(stdout, "Até logo.")
+			pauseIfStandalone(stdin, stdout)
 			return nil
 		}
 	}
@@ -474,6 +476,16 @@ func waitEnter(stdin io.Reader, stdout io.Writer) {
 		return
 	}
 	fmt.Fprint(stdout, "\nPressione Enter para voltar ao menu...")
+	bufio.NewReader(stdin).ReadString('\n')
+}
+
+// pauseIfStandalone evita que a janela feche instantaneamente quando o app foi
+// aberto por duplo clique/atalho no Windows (console próprio).
+func pauseIfStandalone(stdin io.Reader, stdout io.Writer) {
+	if !platform.StandaloneConsole() {
+		return
+	}
+	fmt.Fprint(stdout, "\nPressione Enter para sair...")
 	bufio.NewReader(stdin).ReadString('\n')
 }
 
